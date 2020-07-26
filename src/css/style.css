@@ -1,0 +1,11 @@
+.imagen{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-image: url('../images/fondo.jpeg');
+    background-position: center;
+    background-size: cover;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+}
