@@ -69,4 +69,4 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 
 
-PROYECTO DE LA ESCUELA - PUNTO DE VENTA
+PROYECTO DE LA ESCUELA - PUNTO DE VENTA v1
