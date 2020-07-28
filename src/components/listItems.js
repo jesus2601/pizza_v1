@@ -9,30 +9,60 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import MessageIcon from '@material-ui/icons/Message';
+import HomeIcon from '@material-ui/icons/Home';
+
+// import { createMuiTheme } from '@material-ui/core/styles';
+// import deepOrange from '@material-ui/core/colors/deepOrange';
+// import amber from '@material-ui/core/colors/amber'
+
+
+// const theme = createMuiTheme({
+//   palette: {
+//     primary: deepOrange,
+//     secondary: amber,
+//   },
+// });
+
+
+const listSelect ={
+  home:false,
+  history:false,
+  favorite:false,
+  offer:false,
+  top:false
+}
+
+
 
 export const mainListItems = (
   <div>
+    <ListItem button selected={listSelect.home}>
+      <ListItemIcon>
+        <HomeIcon color={listSelect.home?'error':'action'}/>
+      </ListItemIcon>
+      <ListItemText primary="Inicio"/>
+    </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <HistoryIcon />
+        <HistoryIcon color={listSelect.history?'error':'action'}/>
       </ListItemIcon>
       <ListItemText primary="Historial" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <FavoriteIcon />
+        <FavoriteIcon color={listSelect.favorite?'error':'action'} />
       </ListItemIcon>
       <ListItemText primary="Favoritos" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <LocalOfferIcon />
+        <LocalOfferIcon color={listSelect.offer?'error':'action'}/>
       </ListItemIcon>
       <ListItemText primary="Ofertas" />
     </ListItem>
     <ListItem button>
       <ListItemIcon>
-        <WhatshotIcon />
+        <WhatshotIcon color={listSelect.top?'error':'action'}/>
       </ListItemIcon>
       <ListItemText primary="Top" />
     </ListItem>
