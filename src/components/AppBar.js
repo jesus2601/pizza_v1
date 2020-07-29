@@ -18,8 +18,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import { mainListItems, secondaryListItems } from './listItems';
-
+import { secondaryListItems } from './listItems';
+import MainListItems from './listItems'
 //iniciar variables y estilos
 const drawerWidth = 250;
 
@@ -192,7 +192,7 @@ export default function BarApp() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+        <MainListItems></MainListItems>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>

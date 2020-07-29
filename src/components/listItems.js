@@ -10,22 +10,36 @@ import WhatshotIcon from '@material-ui/icons/Whatshot';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import MessageIcon from '@material-ui/icons/Message';
 import HomeIcon from '@material-ui/icons/Home';
+import { List } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import {Link} from 'react-router-dom';
+import { createMuiTheme } from '@material-ui/core/styles';
+import {orange, grey,deepOrange} from '@material-ui/core/colors/';
+import { ThemeProvider } from '@material-ui/styles';
 
-// import { createMuiTheme } from '@material-ui/core/styles';
-// import deepOrange from '@material-ui/core/colors/deepOrange';
-// import amber from '@material-ui/core/colors/amber'
+const theme = createMuiTheme({
+  palette: {
+    primary: orange,
+    secondary:  {
+      main: '#e65100',
+    },
+    neutral:grey[800]
+  },
+});
 
-
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: deepOrange,
-//     secondary: amber,
-//   },
-// });
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  },
+  link:{
+    textDecoration:'none',
+    color:"secondary"
+  }
+}))
 
 
 const listSelect ={
-  home:false,
+  home:true,
   history:false,
   favorite:false,
   offer:false,
@@ -34,40 +48,63 @@ const listSelect ={
 
 
 
-export const mainListItems = (
-  <div>
-    <ListItem button selected={listSelect.home}>
-      <ListItemIcon>
-        <HomeIcon color={listSelect.home?'error':'action'}/>
-      </ListItemIcon>
-      <ListItemText primary="Inicio"/>
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <HistoryIcon color={listSelect.history?'error':'action'}/>
-      </ListItemIcon>
-      <ListItemText primary="Historial" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <FavoriteIcon color={listSelect.favorite?'error':'action'} />
-      </ListItemIcon>
-      <ListItemText primary="Favoritos" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <LocalOfferIcon color={listSelect.offer?'error':'action'}/>
-      </ListItemIcon>
-      <ListItemText primary="Ofertas" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <WhatshotIcon color={listSelect.top?'error':'action'}/>
-      </ListItemIcon>
-      <ListItemText primary="Top" />
-    </ListItem>
-  </div>
-);
+export default function MainListItems() {
+  const classes= useStyles();
+  return(
+    <ThemeProvider theme={theme}>
+      <List>
+        <Link style={{color:theme.palette.neutral, textDecoration:'none'}} to="/Inicio">
+          <ListItem button selected={listSelect.home} >
+            <ListItemIcon>
+              <HomeIcon color={listSelect.home?"secondary":'primary'}/>
+            </ListItemIcon>
+            <ListItemText primary="Inicio"/>
+          </ListItem>
+        </Link>
+      </List>
+      <List>
+        <Link style={{color:theme.palette.neutral, textDecoration:'none'}} to="/Favoritos">
+          <ListItem button selected={listSelect.favorite} >
+            <ListItemIcon>
+              <FavoriteIcon color={listSelect.favorite?"secondary":'primary'}/>
+            </ListItemIcon>
+            <ListItemText primary="Favoritos"/>
+          </ListItem>
+        </Link>
+      </List>
+      <List>
+        <Link style={{color:theme.palette.neutral, textDecoration:'none'}} to="/Top">
+          <ListItem button selected={listSelect.top} >
+            <ListItemIcon>
+              <WhatshotIcon color={listSelect.top?"secondary":'primary'}/>
+            </ListItemIcon>
+            <ListItemText primary="Top"/>
+          </ListItem>
+        </Link>
+      </List>
+      <List>
+        <Link style={{color:theme.palette.neutral, textDecoration:'none'}} to="/Ofertas">
+          <ListItem button selected={listSelect.offer} >
+            <ListItemIcon>
+              <LocalOfferIcon color={listSelect.offer?"secondary":'primary'}/>
+            </ListItemIcon>
+            <ListItemText primary="Ofertas"/>
+          </ListItem>
+        </Link>
+      </List>
+      <List>
+        <Link style={{color:theme.palette.neutral, textDecoration:'none'}} to="/Historial">
+          <ListItem button selected={listSelect.history} >
+            <ListItemIcon>
+              <HistoryIcon color={listSelect.history?"secondary":'primary'}/>
+            </ListItemIcon>
+            <ListItemText primary="Historial"/>
+          </ListItem>
+        </Link>
+      </List>
+  </ThemeProvider>
+  )
+}
 
 export const secondaryListItems = (
   <div>
