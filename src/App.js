@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Routes from './Routes'
-
+import './firebase'
 
 //iniciar el componete routes donde se encuentran las vistas de a cuardo a sus rutas.
 
