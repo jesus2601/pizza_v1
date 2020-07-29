@@ -17,6 +17,14 @@ import AppBar from '../components/AppBar';
 
 import ims from '../images/pizza.jpg';
 
+const listSelect ={
+  home:false,
+  history:true,
+  favorite:false,
+  offer:false,
+  top:false
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
@@ -63,7 +71,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar/>
+      <AppBar items={listSelect}/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>

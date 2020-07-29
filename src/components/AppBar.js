@@ -23,6 +23,8 @@ import MainListItems from './listItems'
 //iniciar variables y estilos
 const drawerWidth = 250;
 
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -103,7 +105,9 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function BarApp() {
+export default function BarApp(props) {
+  const {items}=props;
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleDrawerOpen = () => {
@@ -192,7 +196,7 @@ export default function BarApp() {
           </IconButton>
         </div>
         <Divider />
-        <MainListItems></MainListItems>
+        <MainListItems listSelect={items}></MainListItems>
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>

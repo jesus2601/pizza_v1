@@ -5,6 +5,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import AppBar from '../components/AppBar';
 
+const listSelect ={
+  home:false,
+  history:false,
+  favorite:false,
+  offer:true,
+  top:false
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
@@ -51,7 +59,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar/>
+      <AppBar items={listSelect}/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
 

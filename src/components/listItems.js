@@ -11,10 +11,9 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import MessageIcon from '@material-ui/icons/Message';
 import HomeIcon from '@material-ui/icons/Home';
 import { List } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom';
 import { createMuiTheme } from '@material-ui/core/styles';
-import {orange, grey,deepOrange} from '@material-ui/core/colors/';
+import {orange, grey} from '@material-ui/core/colors/';
 import { ThemeProvider } from '@material-ui/styles';
 
 const theme = createMuiTheme({
@@ -27,29 +26,11 @@ const theme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  link:{
-    textDecoration:'none',
-    color:"secondary"
-  }
-}))
 
 
-const listSelect ={
-  home:true,
-  history:false,
-  favorite:false,
-  offer:false,
-  top:false
-}
+export default function MainListItems(props) {
+  const { listSelect } = props;
 
-
-
-export default function MainListItems() {
-  const classes= useStyles();
   return(
     <ThemeProvider theme={theme}>
       <List>
@@ -64,7 +45,7 @@ export default function MainListItems() {
       </List>
       <List>
         <Link style={{color:theme.palette.neutral, textDecoration:'none'}} to="/Favoritos">
-          <ListItem button selected={listSelect.favorite} >
+          <ListItem button selected={listSelect.favorite}>
             <ListItemIcon>
               <FavoriteIcon color={listSelect.favorite?"secondary":'primary'}/>
             </ListItemIcon>
