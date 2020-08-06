@@ -17,9 +17,15 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 import { secondaryListItems } from './listItems';
 import MainListItems from './listItems'
+import { Link } from 'react-router-dom';
 //iniciar variables y estilos
 const drawerWidth = 250;
 
@@ -107,9 +113,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function BarApp(props) {
   const {items}=props;
-
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [cerrar,setCerrar]=React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -126,6 +132,15 @@ export default function BarApp(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const cerrarClick =()=>{
+    setCerrar (true);
+  }
+  const cerrarVentana =()=>{
+    setCerrar (false);
+  }
+
+  
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -148,7 +163,7 @@ export default function BarApp(props) {
                 </Badge>
             </IconButton>
             <IconButton color="inherit">
-                <Badge badgeContent={2} color="secondary">
+                <Badge badgeContent={props.items.count} color="secondary">
                     <ShoppingCartIcon />
                 </Badge>
             </IconButton>
@@ -177,8 +192,8 @@ export default function BarApp(props) {
                         open={openProfile}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                        <MenuItem onClick={cerrarClick}>Cerrar Sesion</MenuItem>
                     </Menu>
                 </div>    
         </Toolbar>
@@ -200,6 +215,29 @@ export default function BarApp(props) {
         <Divider />
         <List>{secondaryListItems}</List>
       </Drawer>
+      <Dialog
+        open={cerrar}
+        onClose={cerrarVentana}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Estas a punto de cerrar tu sesión"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Pizzeria le recuerda que siempre podrá iniciar su sesion desde culaquier dispositivo, y agradece sus compras
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={cerrarVentana} color="primary">
+            Cancelar
+          </Button>
+          <Button color="primary" autoFocus>
+            <Link to="/Login">
+              Salir
+            </Link>
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

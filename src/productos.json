@@ -1,0 +1,18 @@
+[
+    {
+        "id":"pza01",
+        "nombre":"Mexicana",
+        "precio":"Descripcion",
+        "imagen":"https://cdn.pixabay.com/photo/2016/02/19/11/30/pizza-1209748__340.jpg",
+        "descripcion":"Pizza para disfrutar con amigos",
+        "ingredientes":"Chile, queso, chorizo"
+    },
+    {
+        "id":"pza02",
+        "nombre":"Mexicana",
+        "precio":"Descripcion",
+        "imagen":"https://cdn.pixabay.com/photo/2016/11/29/13/02/cheese-1869708__340.jpg",
+        "descripcion":"Pizza para disfrutar con amigos",
+        "ingredientes":"Chile, queso, chorizo"
+    }
+]

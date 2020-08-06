@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
+import fondo from '../images/fondo.jpeg'
 
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
@@ -54,10 +55,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainFeaturedPost(props) {
   const classes = useStyles();
-  const { post } = props;
+
 
   return (
-    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${post.image})` }}>
+    <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${fondo})` }}>
       <div className={classes.overlay} />
       <Grid container>
       <Paper component="form" className={classes.searchSpace}>

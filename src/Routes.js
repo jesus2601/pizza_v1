@@ -8,7 +8,9 @@ import Historial from './views/History';
 import Favorites from './views/Favorites';
 import Top from './views/Top';
 import Offers from './views/Offers';
-
+import AddPizza from "./views/FormPizza";
+import Contacto from "./views/Contacto";
+import Preguntas from './views/Preguntas';
 
 const Routes =() => {
     return(
@@ -33,6 +35,15 @@ const Routes =() => {
             </Switch>
             <Switch>
                 <Route exact path="/Ofertas" component={Offers} />
+            </Switch>
+            <Switch>
+                <Route exact path="/Pizza" component={AddPizza} />
+            </Switch>
+            <Switch>
+                <Route exact path="/Contacto" component={Contacto} />
+            </Switch>
+            <Switch>
+                <Route exact path="/Contactanos" component={Preguntas} />
             </Switch>
         </BrowserRouter> 
     );

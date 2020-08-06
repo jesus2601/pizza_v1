@@ -1,14 +1,17 @@
   import firebase from 'firebase/app'
+  import 'firebase/firestore'
   
   // Your web app's Firebase configuration
   var firebaseConfig = {
-    apiKey: "AIzaSyBNwHMyMmcVep6gyY8XCLQN3b7DFHDtOws",
-    authDomain: "pizza-93591.firebaseapp.com",
-    databaseURL: "https://pizza-93591.firebaseio.com",
-    projectId: "pizza-93591",
-    storageBucket: "pizza-93591.appspot.com",
-    messagingSenderId: "949167133477",
-    appId: "1:949167133477:web:1b597ad00dcdd501b580cc"
+    apiKey: "AIzaSyCo6oFDqDT8gFLm9fOfu8FHYulHj6cfS2w",
+    authDomain: "punto-veta-pizza.firebaseapp.com",
+    databaseURL: "https://punto-veta-pizza.firebaseio.com",
+    projectId: "punto-veta-pizza",
+    storageBucket: "punto-veta-pizza.appspot.com",
+    messagingSenderId: "682814988669",
+    appId: "1:682814988669:web:6f0124839c8160b0aaac14",
+    measurementId: "G-24Q3D8ZW92"
   };
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  const fb=firebase.initializeApp(firebaseConfig);
+  export const db = fb.firestore();

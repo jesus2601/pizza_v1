@@ -4,18 +4,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-
+import Paper from '@material-ui/core/Paper';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import AppBar from '../components/AppBar';
-
-import ims from '../images/pizza.jpg';
+import productos from '../productos.json';
 
 const listSelect ={
   home:false,
@@ -27,7 +19,7 @@ const listSelect ={
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex',
   },
   content: {
     flexGrow: 1,
@@ -44,8 +36,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(4),
   },
   cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    paddingTop: theme.spacing(4),
+    paddingBottom: theme.spacing(4),
+    display:'flex',
+    justifyContent:'center'
   },
   card: {
     height: '100%',
@@ -57,14 +51,30 @@ const useStyles = makeStyles((theme) => ({
   },
   cardContent: {
     flexGrow: 1,
+    textAlign:'center'
   },
   favorite:{
     marginLeft:'auto'
-  }
+  },
+  paper: {
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
+    maxWidth: 500,
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
 }));
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const cards = productos;
 
 export default function Dashboard() {
   const classes = useStyles();
@@ -75,42 +85,62 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Container className={classes.cardGrid} maxWidth="md">
-            <Grid container spacing={4}>
+          <Grid container alignContent='center' justify='center'>
               {cards.map((card) => (
-                <Grid item key={card} xs={12} sm={6} md={6}>
-                  <Card className={classes.card}>
-                    <CardMedia
-                      className={classes.cardMedia}
-                      image={ims}
-                      title="Image title"
-                    />
-                    <CardContent className={classes.cardContent}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        Mexicana
-                      </Typography>
-                      <Typography>
-                       Pizza Mexicana para disfrutar con amigos.
-                      </Typography>
-                    </CardContent>
-                    <CardActions disableSpacing>
-                      <Button size="small" color="primary">
-                        Ver
-                      </Button>
-                      <IconButton>
-                        <AddShoppingCartIcon></AddShoppingCartIcon>
-                      </IconButton>
-                      <IconButton aria-label="add to favorites"  className={classes.favorite}>
-                        <FavoriteIcon color='error'/>
-                      </IconButton>
-                    </CardActions>
-                  </Card>
-                </Grid>
+                <CardItem key={card} params={card} />
               ))}
-            </Grid>
-          </Container>
+          </Grid>
         </Container>
       </main>
     </div>
+  );
+}
+
+function CardItem(params) {
+  const classes = useStyles();
+  const detalles = params.params;
+  return(
+   <Grid container sm={12} md={6} lg={6} alignContent='center' justify='center'>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ButtonBase className={classes.image} onClick={()=>{console.log(detalles.imagen);}}>
+              <img className={classes.img} alt="complex" src={detalles.imagen} />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  Jul 30,2020
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Detalles de la compra
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  Pizza Mexicana (2) - 
+                  Paquete (1) - 
+                  Papas 3 (1) - 
+                  Refresco cola (1) - 
+                  Nugets (10)                   Pizza Mexicana (2) - 
+                  Paquete (1) - 
+                  Papas 3 (1) - 
+                  Refresco cola (1) - 
+                  Nugets (10)
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Typography variant="body2" style={{ cursor: 'pointer' }}>
+                  Eliminar
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1">$200.00</Typography>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Grid>
   );
 }

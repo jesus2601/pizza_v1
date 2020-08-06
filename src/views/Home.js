@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState, useEffect} from 'react';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -16,24 +16,18 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import Badge from '@material-ui/core/Badge';
-import Buscador from '../components/Buscador';
 import AppBar from '../components/AppBar';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
+import {db} from '../firebase'
 
+
+import Buscador from '../components/Buscador'
 import ims from '../images/pizza.jpg';
-import im from '../images/fondo.jpeg'
-
-const listSelect ={
-  home:true,
-  history:false,
-  favorite:false,
-  offer:false,
-  top:false
-}
+import Footer from '../components/Footer';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    height: '100vh',
+    height:'100vh',
     overflow: 'auto',
   },
   appBarSpacer: theme.mixins.toolbar,
@@ -87,17 +81,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const mainFeaturedPost = {
-  image: im,
-};
-
-const cards = [
-  { id:1,
-    nombre:'Mexicana extra queso doble'},
-  {id:2,
-    nombre:'Queso'}
-];
-
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -137,8 +120,32 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
+
+
 export default function Home() {
+  useEffect(()=>{
+    getItems();
+  },[]);
+
+  const [pizzas, setPizzas] = useState([]);
   const classes = useStyles();
+  const listSelect ={
+    home:true,
+    history:false,
+    favorite:false,
+    offer:false,
+    top:false,
+    count:1,
+  }
+  const getItems= async ()=>{
+    db.collection('pizzas').onSnapshot((querySnap)=>{
+      const docs =[];
+      querySnap.forEach((doc)=>{
+        docs.push({...doc.data(), id:doc.id})
+      });
+      setPizzas(docs);
+    });
+  }
   
   return (
     <div className={classes.root}>
@@ -147,19 +154,19 @@ export default function Home() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
-          <Grid item xs={12}>
-              <Buscador  post={mainFeaturedPost}/>
-          </Grid>
           <Container className={classes.cardGrid} maxWidth="md">
+            <Grid item xs={12}>
+                <Buscador/>
+            </Grid>
             <Grid container spacing={4} >
-              {cards.map((card) => (
-                <Grid item key={card.id} xs={12} sm={5} md={6}>
+              {pizzas.map((card) => (
+                <Grid item key={card.id} xs ={12} sm={12} md={8} lg={6}>
                   <Card className={classes.card}>
                     <Prev props={card}></Prev>
                     <CardActions disableSpacing>
                       <CustomizedDialogs props={card}></CustomizedDialogs>
                       <IconButton>
-                        <FavoriteIcon></FavoriteIcon>
+                        <FavoriteIcon color="secondary"></FavoriteIcon>
                       </IconButton>
                       <Card className={classes.favorite}></Card>
                       <AddLess prop={card} ></AddLess>
@@ -168,17 +175,19 @@ export default function Home() {
                 </Grid>
               ))}
             </Grid>
+            </Container>
           </Container>
-        </Container>
+          <Footer></Footer>
       </main>
     </div>
   );
 }
 
 function Prev(props) {
+
   const detalles=props.props;
-  const hola=detalles.nombre;
   const classes = useStyles();
+
   return(
     <div className={classes.padre}>
       <CardMedia
@@ -188,10 +197,10 @@ function Prev(props) {
       />
       <CardContent className={classes.cardContent}>
         <Typography variant="h5" component="h2">
-          <p>{hola}</p>
+          <p>{detalles.nombre}</p>
         </Typography>
         <Typography>
-          Pizza Mexicana para disfrutar con amigos.
+          {detalles.descripcion}
         </Typography>
       </CardContent>
     </div>
@@ -199,7 +208,6 @@ function Prev(props) {
 }
 
 function AddLess(props) {
-  const prop=props;
   const classes = useStyles();
   const [count, setCount] = React.useState(0);
   return(
@@ -224,7 +232,7 @@ function AddLess(props) {
               <AddIcon fontSize="small" />
             </Button>
           </ButtonGroup>
-          <IconButton color="inherit" onClick={()=>{console.log(prop.prop.nombre);}}>
+          <IconButton color="inherit">
             <Badge  badgeContent={count} color="secondary">
               <AddShoppingCartIcon />
             </Badge>
@@ -271,7 +279,7 @@ function CustomizedDialogs(e) {
               Ingredientes
               </Typography>
               <Typography gutterBottom > 
-              Pastor, tocino, pimientos y cebolla.
+              {detalles.ingredientes}
               </Typography>
             </Grid>  
           </Grid>
@@ -283,7 +291,7 @@ function CustomizedDialogs(e) {
             </Grid>
             <Grid item xs={12}>
             <Typography variant="h6" gutterBottom>
-              255
+              {detalles.ranking}
             </Typography>
             </Grid>
           </Grid>

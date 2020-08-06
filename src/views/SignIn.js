@@ -140,7 +140,7 @@ export default function SignInSide() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Link to='/' className={classes.link}>
+            <Link to='/Inicio' className={classes.link}>
               <Button
                 type="submit"
                 fullWidth
@@ -151,13 +151,10 @@ export default function SignInSide() {
                 Entrar
               </Button>
             </Link>
-              
-            
-            
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
+                <Link to='/Registro'>
+                  Crear cuenta
                 </Link>
               </Grid>
               <Grid item>
