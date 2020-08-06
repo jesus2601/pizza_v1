@@ -14,7 +14,10 @@ import Preguntas from './views/Preguntas';
 
 const Routes =() => {
     return(
-        <BrowserRouter> 
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/" component={Home} />
+            </Switch> 
             <Switch>
                 <Route exact path="/Inicio" component={Home} />
             </Switch>

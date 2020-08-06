@@ -123,6 +123,7 @@ export default function  FormPizza(){
             docs.push({...doc.data(), id:doc.id})
           });
           setPizzas(docs);
+          console.log(docs);
         });
       }
 
@@ -203,7 +204,7 @@ function Tabla(props) {
                 {row.nombre}
               </TableCell>
               <TableCell align="center">${row.precio}</TableCell>
-              <TableCell align="center">{row.detalles}</TableCell>
+              <TableCell align="center">{row.descripcion}</TableCell>
               <TableCell align="center">{row.ingredientes}</TableCell>
               <TableCell align="center">{row.size}</TableCell>
             </TableRow>

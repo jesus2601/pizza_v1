@@ -65,19 +65,15 @@ export default function FormPizza(props) {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     nombre:"",
-    precio:'',
+    precio:0,
     descripcion:"",
     ingredientes:'',
     size:'',
     ranking:'0'
   });
 
-  const [numero, setNumero] = React.useState({
-    numero:""
-  });
-
   const agregarNumero = (event) => {
-    setNumero({
+    setValues({
       ...values,
       [event.target.name]: event.target.value,
     });
@@ -146,7 +142,7 @@ export default function FormPizza(props) {
                                 <TextField
                                     id="precio"
                                     label="Precio"
-                                    value={numero.numero}
+                                    value={values.precio}
                                     onChange={agregarNumero}
                                     style={{ margin: 8 }}
                                     name="precio"

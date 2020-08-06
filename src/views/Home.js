@@ -1,3 +1,4 @@
+// Se importan todas las clases de la libreria material-ui y React, para poder renderizar el componente
 import React,{ useState, useEffect} from 'react';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,12 +24,14 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
 import {db} from '../firebase'
-
-
 import Buscador from '../components/Buscador'
 import ims from '../images/pizza.jpg';
 import Footer from '../components/Footer';
 
+/*
+SE crea una variable use Styles para guardar los estilos de los componentes,
+su función es identica a CSS , diferencian la sintaxis ejemplo bakgroun-color bakcgroundColor
+*/
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex'
@@ -81,6 +84,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+//Otra variable de estilos
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -94,6 +98,7 @@ const styles = (theme) => ({
   },
 });
 
+//Es una funcion que se utiliza para crear el header o cabecera de Un cuadro de dialogo 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
@@ -137,6 +142,9 @@ export default function Home() {
     top:false,
     count:1,
   }
+  /**
+   * Funcionaba para algo, pero no me acuerdo para que XD
+   */
   const getItems= async ()=>{
     db.collection('pizzas').onSnapshot((querySnap)=>{
       const docs =[];
