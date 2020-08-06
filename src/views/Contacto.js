@@ -1,3 +1,4 @@
+// Se importan todas las clases de la libreria material-ui y React, para poder renderizar el componente
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -22,6 +23,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import Avatar from '@material-ui/core/Avatar';
 
+//Se crea una variable para guardar un thema, colores anaranjado
 const theme = createMuiTheme({
   palette: {
         primary: orange,
@@ -30,6 +32,8 @@ const theme = createMuiTheme({
         },
   },
 });
+
+//variable de estilos
 const useStyles = makeStyles((theme) => ({
   '@global': {
     ul: {
@@ -83,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
 }
 }));
 
+//Variable para mapear los datos de los desarrolladores, un array
+//cada elemento agregado se debe mapear en el item
 const tiers = [
   {
     nombre: 'Aldo',
@@ -108,7 +114,7 @@ const tiers = [
 ];
 
 export default function Pricing() {
-  const classes = useStyles();
+  const classes = useStyles();//iniciar estilos
 
   return (
      <ThemeProvider  theme={theme}>

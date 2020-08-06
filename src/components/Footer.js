@@ -8,11 +8,14 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import { Link } from 'react-router-dom';
+
+
+//Aqui va la información del Copyrigth de la empresa
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary">
       {'Copyright © '}
-      <Links color="inherit" href="https://material-ui.com/">
+      <Links color="inherit" href="#">
         Pizzería.com
       </Links>{' '}
       {new Date().getFullYear()}
@@ -21,6 +24,8 @@ function Copyright() {
   );
 }
 
+
+//Variable de estilos
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -49,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Footer() {
-  const classes = useStyles();
+  const classes = useStyles();//iniciar estilos
 
   return (
       <footer className={classes.footer}>
@@ -114,15 +119,21 @@ export default function Footer() {
               </Grid>
               <Grid item xs={12}>
                 <Container>
+                    <a href="https://www.facebook.com/PIZZA-XVI-644515206166010/?modal=admin_todo_tour">
                     <IconButton>
-                        <FacebookIcon></FacebookIcon>
+                        <FacebookIcon/>
                     </IconButton>
+                    </a>
+                    <a href="https://twitter.com/PizzaXvi">
                     <IconButton>
-                        <TwitterIcon></TwitterIcon>
+                        <TwitterIcon/>
                     </IconButton>
+                    </a>
+                    <a href="https://www.instagram.com/pizza_xvi/">
                     <IconButton>
-                        <InstagramIcon></InstagramIcon>
+                        <InstagramIcon/>
                     </IconButton>
+                    </a>
                 </Container>
               </Grid>
           </Grid>

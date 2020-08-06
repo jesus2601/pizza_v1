@@ -34,14 +34,14 @@ su función es identica a CSS , diferencian la sintaxis ejemplo bakgroun-color b
 */
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex'//define la visibildad dentro del componente
   },
   content: {
     flexGrow: 1,
     height:'100vh',
     overflow: 'auto',
   },
-  appBarSpacer: theme.mixins.toolbar,
+  appBarSpacer: theme.mixins.toolbar,//el tamaño que ocupa AppBar
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
@@ -98,6 +98,12 @@ const styles = (theme) => ({
   },
 });
 
+
+
+/**
+ * Grid es un metodo de 12 rejillas
+ */
+
 //Es una funcion que se utiliza para crear el header o cabecera de Un cuadro de dialogo 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -128,12 +134,24 @@ const DialogActions = withStyles((theme) => ({
 
 
 export default function Home() {
+  /**
+   * Es una propiedad de react que permanece activa en espera de un cambio.
+   * epera una catualización, de la BD, para renderizar mas objetos
+   */
   useEffect(()=>{
     getItems();
   },[]);
 
-  const [pizzas, setPizzas] = useState([]);
-  const classes = useStyles();
+  const [pizzas, setPizzas] = useState([]);//Un comportamiento de react para actualizar variables
+  /**
+   * pizzas se ocupa para guardar todos los registros de la colleccion pizzas de firebase
+   */
+  
+  const classes = useStyles();//define classes como varieble para utilizar los estilos creados
+  
+  /**
+   * Es un arreglo donde se especifica que ventana esta activa de acuerdo a la vista que se este renderizando
+   */
   const listSelect ={
     home:true,
     history:false,
@@ -143,7 +161,9 @@ export default function Home() {
     count:1,
   }
   /**
-   * Funcionaba para algo, pero no me acuerdo para que XD
+   * Obtine todos los elementos de la collección pizzas de firebase 
+   * lo guarda en una variable docs por cada elemento que encuentre, y al final
+   * lo asigna a la variable Pizzas con el metodo setPizzas de useState()
    */
   const getItems= async ()=>{
     db.collection('pizzas').onSnapshot((querySnap)=>{
@@ -156,6 +176,12 @@ export default function Home() {
   }
   
   return (
+    /**
+     * se inicializan los componentes, siempre deven estar en un contenedor padre
+     * AppBar es un componente creado por nosotros y solo se importa
+     * Buscador igual
+     * Mapea el arreglo que contiene todos los registros y cada map renderiza un item
+     */
     <div className={classes.root}>
       <CssBaseline />
       <AppBar items={listSelect}/>
@@ -191,6 +217,13 @@ export default function Home() {
   );
 }
 
+
+/**
+ * 
+ * @param {*} props
+ * Esta función crea otro componente, y este componente se manda a llamar como una etiqueta
+ * Crea la estructura del item de un registro  
+ */
 function Prev(props) {
 
   const detalles=props.props;
@@ -215,9 +248,15 @@ function Prev(props) {
   );  
 }
 
+/**
+ * 
+ * @param {*} props
+ * Crea otro componente, para la barra inferior del item, agrega los botones
+ * para agregar o quitar un numero al badge del carrito de compras del item de un registro 
+ */
 function AddLess(props) {
   const classes = useStyles();
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(0);//Contador
   return(
     <div>
       <Grid>
@@ -225,7 +264,7 @@ function AddLess(props) {
           <ButtonGroup className={classes.GroupB}>
             <Button
               onClick={() => {
-                setCount(Math.max(count - 1, 0));
+                setCount(Math.max(count - 1, 0));//restar 1 al contador hasta llegar a 0
               }}
               className={classes.ButtonM}
             >
@@ -233,7 +272,7 @@ function AddLess(props) {
             </Button>
             <Button
               onClick={() => {
-              setCount(count + 1);
+              setCount(count + 1);//sumar 1 al contador
               }}
               className={classes.ButtonM}
             >
@@ -251,14 +290,21 @@ function AddLess(props) {
   );
 }
 
+
+/**
+ * 
+ * @param {*} e
+ * Es un cuadro de dialogo personalizado para que cuando se haga click en el boton de detalles se abra
+ * y muestre mas informacion del producto {Esta en fase ,a un no estan definidos todos los detalles a mostrar} 
+ */
 function CustomizedDialogs(e) {
-  const detalles=e.props;
-  const [open, setOpen] = React.useState(false);
+  const detalles=e.props;//recibe los parametros en la variable
+  const [open, setOpen] = React.useState(false);//variable para saber si esta ceerada o no la ventana
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpen(true);//cambiar el valor de open
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false);//cambial el valor de open
   };
   const classes=useStyles();
 
@@ -287,7 +333,7 @@ function CustomizedDialogs(e) {
               Ingredientes
               </Typography>
               <Typography gutterBottom > 
-              {detalles.ingredientes}
+              {detalles.ingredientes/**usar la propiedad ingredientes del item */}
               </Typography>
             </Grid>  
           </Grid>
@@ -299,7 +345,7 @@ function CustomizedDialogs(e) {
             </Grid>
             <Grid item xs={12}>
             <Typography variant="h6" gutterBottom>
-              {detalles.ranking}
+              {detalles.ranking/**usar la propiedad ranking del item */}
             </Typography>
             </Grid>
           </Grid>

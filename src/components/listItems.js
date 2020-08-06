@@ -16,6 +16,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import {orange, grey} from '@material-ui/core/colors/';
 import { ThemeProvider } from '@material-ui/styles';
 
+//Se crea la paleta de colores para los iconos
 const theme = createMuiTheme({
   palette: {
     primary: orange,
@@ -27,10 +28,16 @@ const theme = createMuiTheme({
 });
 
 
+/**
+ * 
+ * @param {*} props
+ * Aqui se pintan los iconos de acuerdo al item activo 
+ * cada icono tiene un link a una vista
+ */
+
 
 export default function MainListItems(props) {
-  const { listSelect } = props;
-
+  const { listSelect } = props;//la lista de cual debe estar activo
   return(
     <ThemeProvider theme={theme}>
       <List>
@@ -87,6 +94,7 @@ export default function MainListItems(props) {
   )
 }
 
+//Son los iconos secundarios, no tienen una funcion definida aún
 export const secondaryListItems = (
   <div>
     <ListSubheader inset>Soporte</ListSubheader>

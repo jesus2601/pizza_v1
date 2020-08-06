@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +7,8 @@ import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import fondo from '../images/fondo.jpeg'
 
+
+//INicializa los estilos
 const useStyles = makeStyles((theme) => ({
   mainFeaturedPost: {
     paddingTop:'9%',
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MainFeaturedPost(props) {
   const classes = useStyles();
 
-
+//Es el buscador que está en la página Inicio-- Implementar para todas las vistas,
   return (
     <Paper className={classes.mainFeaturedPost} style={{ backgroundImage: `url(${fondo})` }}>
       <div className={classes.overlay} />
@@ -65,7 +66,7 @@ export default function MainFeaturedPost(props) {
         <InputBase
           className={classes.input}
           placeholder="Buscar Pizzas"
-          inputProps={{ 'aria-label': 'search google maps' }}
+          inputProps={{ 'aria-label': 'Buscar pizzas' }}
         />
         <IconButton type="submit" className={classes.iconButton} aria-label="search">
           <SearchIcon />
@@ -75,7 +76,3 @@ export default function MainFeaturedPost(props) {
     </Paper>
   );
 }
-
-MainFeaturedPost.propTypes = {
-  post: PropTypes.object,
-};

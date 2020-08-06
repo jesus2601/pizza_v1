@@ -1,16 +1,17 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
-
 import AppBar from '../components/AppBar';
 
+
+//Lista de iconos en el menu
 const listSelect ={
   home:false,
   history:false,
   favorite:false,
-  offer:true,
-  top:false
+  offer:true,//activo
+  top:false,
+  count:0
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -27,34 +28,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
   },
-  container: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
-  },
-  cardGrid: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
-  },
-  card: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardMedia: {
-    paddingTop: '56.25%', // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
-  favorite:{
-    marginLeft:'auto'
-  }
 }));
 
 
+//VIsta de ofertas
 
-
-export default function Dashboard() {
+export default function Ofertas() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -62,7 +41,7 @@ export default function Dashboard() {
       <AppBar items={listSelect}/>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-
+        {/*Epacio Para los item de Ofertas*/}
       </main>
     </div>
   );

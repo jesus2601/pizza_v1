@@ -9,9 +9,11 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import AppBar from '../components/AppBar';
 import productos from '../productos.json';
 
+
+//Variable para la activar icono en el menu lateral
 const listSelect ={
   home:false,
-  history:true,
+  history:true,//activo
   favorite:false,
   offer:false,
   top:false
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
     overflow: 'auto',
   },
-  appBarSpacer: theme.mixins.toolbar,
+  appBarSpacer: theme.mixins.toolbar,//Tamaño del appBar
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
@@ -74,9 +76,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const cards = productos;
+const cards = productos;//productos del Achivo Json para pruebas
 
-export default function Dashboard() {
+//Funcion principal
+export default function Historiall() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -87,7 +90,7 @@ export default function Dashboard() {
         <Container maxWidth="lg" className={classes.container}>
           <Grid container alignContent='center' justify='center'>
               {cards.map((card) => (
-                <CardItem key={card} params={card} />
+                <CardItem key={card} params={card}/>
               ))}
           </Grid>
         </Container>
@@ -96,7 +99,7 @@ export default function Dashboard() {
   );
 }
 
-function CardItem(params) {
+function CardItem(params) {//Un item por cada elemeto del array
   const classes = useStyles();
   const detalles = params.params;
   return(

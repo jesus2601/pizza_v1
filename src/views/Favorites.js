@@ -1,4 +1,5 @@
-import React,{ useState } from 'react';
+// Se importan todas las clases de la libreria material-ui y React, para poder renderizar el componente
+import React,{ useState, useEffect} from 'react';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
@@ -22,19 +23,24 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import CloseIcon from '@material-ui/icons/Close';
-
+import {db} from '../firebase'
 import ims from '../images/pizza.jpg';
+import Footer from '../components/Footer';
 
+/*
+SE crea una variable use Styles para guardar los estilos de los componentes,
+su función es identica a CSS , diferencian la sintaxis ejemplo bakgroun-color bakcgroundColor
+*/
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex'
+    display: 'flex'//define la visibildad dentro del componente
   },
   content: {
     flexGrow: 1,
-    height: '100vh',
+    height:'100vh',
     overflow: 'auto',
   },
-  appBarSpacer: theme.mixins.toolbar,
+  appBarSpacer: theme.mixins.toolbar,//el tamaño que ocupa AppBar
   heroContent: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(8, 0, 6),
@@ -77,14 +83,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-const cards = [
-  { id:1,
-    nombre:'Mexicana extra queso doble'},
-  {id:2,
-    nombre:'Queso'}
-];
-
+//Otra variable de estilos
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -98,6 +97,13 @@ const styles = (theme) => ({
   },
 });
 
+
+
+/**
+ * Grid es un metodo de 12 rejillas
+ */
+
+//Es una funcion que se utiliza para crear el header o cabecera de Un cuadro de dialogo 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
@@ -124,20 +130,56 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function Home() {
 
-  const [count, setCount] = useState(0);
-  const classes = useStyles();
+
+export default function Home() {
+  /**
+   * Es una propiedad de react que permanece activa en espera de un cambio.
+   * epera una catualización, de la BD, para renderizar mas objetos
+   */
+  useEffect(()=>{
+    getItems();
+  },[]);
+
+  const [pizzas, setPizzas] = useState([]);//Un comportamiento de react para actualizar variables
+  /**
+   * pizzas se ocupa para guardar todos los registros de la colleccion pizzas de firebase
+   */
+  
+  const classes = useStyles();//define classes como varieble para utilizar los estilos creados
+  
+  /**
+   * Es un arreglo donde se especifica que ventana esta activa de acuerdo a la vista que se este renderizando
+   */
   const listSelect ={
     home:false,
     history:false,
-    favorite:true,
+    favorite:true,//Activo
     offer:false,
     top:false,
     count:1,
   }
+  /**
+   * Obtine todos los elementos de la collección pizzas de firebase 
+   * lo guarda en una variable docs por cada elemento que encuentre, y al final
+   * lo asigna a la variable Pizzas con el metodo setPizzas de useState()
+   */
+  const getItems= async ()=>{
+    db.collection('pizzas').onSnapshot((querySnap)=>{
+      const docs =[];
+      querySnap.forEach((doc)=>{
+        docs.push({...doc.data(), id:doc.id})
+      });
+      setPizzas(docs);
+    });
+  }
   
   return (
+    /**
+     * se inicializan los componentes, siempre deven estar en un contenedor padre
+     * AppBar es un componente creado por nosotros y solo se importa
+     * Mapea el arreglo que contiene todos los registros y cada map renderiza un item
+     */
     <div className={classes.root}>
       <CssBaseline />
       <AppBar items={listSelect}/>
@@ -146,13 +188,13 @@ export default function Home() {
         <Container maxWidth="lg" className={classes.container}>
           <Container className={classes.cardGrid} maxWidth="md">
             <Grid container spacing={4} >
-              {cards.map((card) => (
+              {pizzas.map((card) => (
                 <Grid item key={card.id} xs ={12} sm={12} md={8} lg={6}>
                   <Card className={classes.card}>
                     <Prev props={card}></Prev>
                     <CardActions disableSpacing>
                       <CustomizedDialogs props={card}></CustomizedDialogs>
-                      <IconButton onClick={() => setCount(count + 1)}>
+                      <IconButton>
                         <FavoriteIcon color="secondary"></FavoriteIcon>
                       </IconButton>
                       <Card className={classes.favorite}></Card>
@@ -162,17 +204,26 @@ export default function Home() {
                 </Grid>
               ))}
             </Grid>
+            </Container>
           </Container>
-        </Container>
+          <Footer></Footer>
       </main>
     </div>
   );
 }
 
+
+/**
+ * 
+ * @param {*} props
+ * Esta función crea otro componente, y este componente se manda a llamar como una etiqueta
+ * Crea la estructura del item de un registro  
+ */
 function Prev(props) {
+
   const detalles=props.props;
-  const hola=detalles.nombre;
   const classes = useStyles();
+
   return(
     <div className={classes.padre}>
       <CardMedia
@@ -182,20 +233,25 @@ function Prev(props) {
       />
       <CardContent className={classes.cardContent}>
         <Typography variant="h5" component="h2">
-          <p>{hola}</p>
+          <p>{detalles.nombre}</p>
         </Typography>
         <Typography>
-          Pizza Mexicana para disfrutar con amigos.
+          {detalles.descripcion}
         </Typography>
       </CardContent>
     </div>
   );  
 }
 
+/**
+ * 
+ * @param {*} props
+ * Crea otro componente, para la barra inferior del item, agrega los botones
+ * para agregar o quitar un numero al badge del carrito de compras del item de un registro 
+ */
 function AddLess(props) {
-  const prop=props;
   const classes = useStyles();
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(0);//Contador
   return(
     <div>
       <Grid>
@@ -203,7 +259,7 @@ function AddLess(props) {
           <ButtonGroup className={classes.GroupB}>
             <Button
               onClick={() => {
-                setCount(Math.max(count - 1, 0));
+                setCount(Math.max(count - 1, 0));//restar 1 al contador hasta llegar a 0
               }}
               className={classes.ButtonM}
             >
@@ -211,14 +267,14 @@ function AddLess(props) {
             </Button>
             <Button
               onClick={() => {
-              setCount(count + 1);
+              setCount(count + 1);//sumar 1 al contador
               }}
               className={classes.ButtonM}
             >
               <AddIcon fontSize="small" />
             </Button>
           </ButtonGroup>
-          <IconButton color="inherit" onClick={()=>{console.log(prop.prop.nombre);}}>
+          <IconButton color="inherit">
             <Badge  badgeContent={count} color="secondary">
               <AddShoppingCartIcon />
             </Badge>
@@ -229,14 +285,21 @@ function AddLess(props) {
   );
 }
 
+
+/**
+ * 
+ * @param {*} e
+ * Es un cuadro de dialogo personalizado para que cuando se haga click en el boton de detalles se abra
+ * y muestre mas informacion del producto {Esta en fase ,a un no estan definidos todos los detalles a mostrar} 
+ */
 function CustomizedDialogs(e) {
-  const detalles=e.props;
-  const [open, setOpen] = React.useState(false);
+  const detalles=e.props;//recibe los parametros en la variable
+  const [open, setOpen] = React.useState(false);//variable para saber si esta ceerada o no la ventana
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpen(true);//cambiar el valor de open
   };
   const handleClose = () => {
-    setOpen(false);
+    setOpen(false);//cambial el valor de open
   };
   const classes=useStyles();
 
@@ -265,7 +328,7 @@ function CustomizedDialogs(e) {
               Ingredientes
               </Typography>
               <Typography gutterBottom > 
-              Pastor, tocino, pimientos y cebolla.
+              {detalles.ingredientes/**usar la propiedad ingredientes del item */}
               </Typography>
             </Grid>  
           </Grid>
@@ -277,7 +340,7 @@ function CustomizedDialogs(e) {
             </Grid>
             <Grid item xs={12}>
             <Typography variant="h6" gutterBottom>
-              255
+              {detalles.ranking/**usar la propiedad ranking del item */}
             </Typography>
             </Grid>
           </Grid>
