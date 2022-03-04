@@ -77,7 +77,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="lastName"
-                label="APellido"
+                label="Apellido"
                 name="lastName"
                 autoComplete="lname"
               />
@@ -99,7 +99,7 @@ export default function SignUp() {
                 required
                 fullWidth
                 name="password"
-                label="COntraseña"
+                label="Contraseña"
                 type="password"
                 id="password"
                 autoComplete="current-password"
